@@ -27,7 +27,7 @@ const Login = () => {
     });
     try {
       setLoading(true);
-      await AxiosClient.get("/sanctum/csrf-cookie");
+      // await AxiosClient.get("/sanctum/csrf-cookie");
       const { username, password } = formData;
       const { data, status } = await AxiosClient.post(
         "api/auth/superadminlogin",

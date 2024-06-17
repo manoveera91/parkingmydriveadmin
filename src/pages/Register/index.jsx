@@ -30,7 +30,7 @@ const Register = () => {
     });
     try {
       setLoading(true);
-      await AxiosClient.get("/sanctum/csrf-cookie");
+      // await AxiosClient.get("/sanctum/csrf-cookie");
       const { username, password, email } = formData;
       const { data, status } = await AxiosClient.post(
         "api/auth/adminregister",
