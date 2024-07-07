@@ -44,6 +44,7 @@ const EditParkingSpot = () => {
   useEffect(() => {
     if (state) {
       console.log("state", state);
+      debugger
       setData(state);
       setValue("latitude", state.latitude);
       setValue("longitude", state.longitude);
@@ -113,6 +114,19 @@ const EditParkingSpot = () => {
         </div>
       </>
     );
+  };
+
+  const handleChange = (e) => {
+    console.log(data);
+    debugger
+    if (e.target.value === "1" && data.isBooked == 1) {
+      debugger
+      const confirmInactive = window.confirm("Spot already booked. Are you sure you want to change the spot as Inactive?");
+      if (!confirmInactive) {
+        // Prevent the change if the user cancels
+        setValue('status', '0');
+      }
+    }
   };
 
   return (
@@ -278,11 +292,10 @@ const EditParkingSpot = () => {
                                             width: "120px",
                                           }}
                                           key={item.id}
-                                          src={`${
-                                            import.meta.env.VITE_APP_BASE_URL
-                                          }/storage/${item.photo_path.slice(
-                                            6
-                                          )}`}
+                                          src={`${import.meta.env.VITE_APP_BASE_URL
+                                            }/storage/${item.photo_path.slice(
+                                              6
+                                            )}`}
                                           alt={item.id}
                                         />
                                       );
@@ -314,12 +327,12 @@ const EditParkingSpot = () => {
                                       formatDate(date)
                                     );
                                   }}
-                                  // {...register("from_date_time", {
-                                  //   required: "From Date is required",
-                                  // })}
-                                  // {...register("from_date_time", {
-                                  //   required: true,
-                                  // })}
+                                // {...register("from_date_time", {
+                                //   required: "From Date is required",
+                                // })}
+                                // {...register("from_date_time", {
+                                //   required: true,
+                                // })}
                                 />
                                 {errors?.from_date_time && (
                                   <span className="text-danger">
@@ -348,9 +361,9 @@ const EditParkingSpot = () => {
                                     setToDate(date);
                                     setValue("to_date_time", formatDate(date));
                                   }}
-                                  // {...register("to_date_time", {
-                                  //   required: true,
-                                  // })}
+                                // {...register("to_date_time", {
+                                //   required: true,
+                                // })}
                                 />
                                 {errors?.to_date_time && (
                                   <span className="text-danger">
@@ -395,6 +408,8 @@ const EditParkingSpot = () => {
                                     type="radio"
                                     value="0"
                                     {...register("status", { required: true })}
+                                    // checked={status === '0'}
+                                    onChange={handleChange}
                                   />
                                   <label
                                     className="form-check-label"
@@ -409,6 +424,8 @@ const EditParkingSpot = () => {
                                     type="radio"
                                     value={1}
                                     {...register("status", { required: true })}
+                                    // checked={status === '1'}
+                                    onChange={handleChange}
                                   />
                                   <label
                                     className="form-check-label"
